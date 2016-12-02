@@ -11,6 +11,7 @@ package example.mapbox.sla.mapboxdemo;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -25,6 +26,7 @@ public class MainActivity extends FragmentActivity {
     private MapView mapView;
 
     private String vibrant_city = "https://maps-json.onemap.sg/Default.json";
+    // SLA Basemap url, for more information go to https://docs.onemap.sg/#basemap
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,13 @@ public class MainActivity extends FragmentActivity {
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState); //VERY IMPORTANT LINE OR ELSE APP WILL CRASH
         mapView.setStyleUrl(vibrant_city); //SET CUSTOM BASE MAP URL
+
+        //Callback when map finish loading and is ready to be used
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
 
-                //ZOOM TO LOCATION
+                //region ZOOM TO LOCATION
                 LatLng zoomLocation = new LatLng(1.358479,103.815201);
                 CameraPosition position = new CameraPosition.Builder()
                         .target(zoomLocation)
@@ -46,13 +50,25 @@ public class MainActivity extends FragmentActivity {
                         .build(); // Creates a CameraPosition from the builder
                 mapboxMap.animateCamera(CameraUpdateFactory
                         .newCameraPosition(position), 2000);
-                //ZOOM TO LOCATION ENDS
+                //endregion
 
-                //ADD MARKER
+                //region ADD MARKER
                 MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(zoomLocation).title("Marker Title").snippet("This is a marker snippet");
+                markerOptions.position(zoomLocation).title("Marker Title").snippet("This is a marker snippet!");
                 mapboxMap.addMarker(markerOptions);
-                //ADD MARKER ENDS
+                //endregion
+
+                //region CUSTOM MARKER INFO WINDOW
+                //Comment out to use back default marker info window
+                CustomMarkerInfoWindow customMarkerInfoWindow = new CustomMarkerInfoWindow(MainActivity.this);
+                mapboxMap.setInfoWindowAdapter(customMarkerInfoWindow);
+                mapboxMap.setOnInfoWindowCloseListener(new MapboxMap.OnInfoWindowCloseListener() {
+                    @Override
+                    public void onInfoWindowClose(Marker marker) {
+
+                    }
+                });
+                //endregion
 
             }
         });
