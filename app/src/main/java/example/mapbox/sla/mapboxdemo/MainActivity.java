@@ -8,6 +8,7 @@
 
 package example.mapbox.sla.mapboxdemo;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.util.Log;
 
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -80,6 +82,16 @@ public class MainActivity extends FragmentActivity {
                 markerOptions2.position( new LatLng(1.358479,103.715201)).title("Marker 2").snippet("Marker snippet 2!");
                 final Marker marker2 = mapboxMap.addMarker(markerOptions2);
                 mapboxMap.selectMarker(marker2);
+                //endregion
+
+                //region ADD polyline
+                PolylineOptions polylineOptions = new PolylineOptions();
+                LatLng polylinePoint1 = new LatLng(1.405050,103.711346);
+                LatLng polylinePoint2 = new LatLng(1.334003,103.925236);
+                polylineOptions .add(polylinePoint1,polylinePoint2)
+                                .color(Color.RED)
+                                .width(1f);
+                mapboxMap.addPolyline(polylineOptions);
                 //endregion
 
                 //region mapboxMap event handlers
