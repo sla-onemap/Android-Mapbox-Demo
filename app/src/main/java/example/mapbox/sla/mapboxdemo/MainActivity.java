@@ -93,6 +93,11 @@ public class MainActivity extends FragmentActivity {
                 mapboxMap.animateCamera(CameraUpdateFactory
                         .newCameraPosition(position), 2000);
                 //endregion
+
+                //region remove mapbox attrition and logo
+                mapboxMap.getUiSettings().setAttributionEnabled(false);
+                mapboxMap.getUiSettings().setLogoEnabled(false);
+                //endregion
             }
         });
 
