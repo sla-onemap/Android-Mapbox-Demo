@@ -55,6 +55,12 @@ public class MainActivity extends FragmentActivity {
                 case 0:
                     startAddMarkerActivity();
                     break;
+                case 1:
+                    startAddPolylineActivity();
+                    break;
+                case 2:
+                    startAddMarkersWithCustomInfoWindowActivity();
+                    break;
             }
         }
     }
@@ -78,18 +84,6 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onMapReady(final MapboxMap mapboxMap) {
 
-                //region CUSTOM MARKER INFO WINDOW
-                //Comment out to use back default marker info window
-                CustomMarkerInfoWindow customMarkerInfoWindow = new CustomMarkerInfoWindow(MainActivity.this);
-                mapboxMap.setInfoWindowAdapter(customMarkerInfoWindow);
-                mapboxMap.setOnInfoWindowCloseListener(new MapboxMap.OnInfoWindowCloseListener() {
-                    @Override
-                    public void onInfoWindowClose(Marker marker) {
-
-                    }
-                });
-                //endregion
-
                 //region ZOOM TO LOCATION
                 LatLng zoomLocation = new LatLng(1.358479,103.815201);
                 CameraPosition position = new CameraPosition.Builder()
@@ -98,55 +92,6 @@ public class MainActivity extends FragmentActivity {
                         .build(); // Creates a CameraPosition from the builder
                 mapboxMap.animateCamera(CameraUpdateFactory
                         .newCameraPosition(position), 2000);
-                //endregion
-
-                //region ADD MARKER
-                mapboxMap.setAllowConcurrentMultipleOpenInfoWindows(true); //Enable concurrent opening of marker info window
-                mapboxMap.getUiSettings().setDeselectMarkersOnTap(false);  //Control hiding of marker info window on map tap
-
-                MarkerOptions markerOptions1 = new MarkerOptions();
-                markerOptions1.position(zoomLocation).title("Marker 1").snippet("Marker snippet 1!");
-                final Marker marker1 = mapboxMap.addMarker(markerOptions1);
-                mapboxMap.selectMarker(marker1);
-
-                MarkerOptions markerOptions2 = new MarkerOptions();
-                markerOptions2.position( new LatLng(1.358479,103.715201)).title("Marker 2").snippet("Marker snippet 2!");
-                final Marker marker2 = mapboxMap.addMarker(markerOptions2);
-                mapboxMap.selectMarker(marker2);
-                //endregion
-
-                //region ADD polyline
-                PolylineOptions polylineOptions = new PolylineOptions();
-                LatLng polylinePoint1 = new LatLng(1.405050,103.711346);
-                LatLng polylinePoint2 = new LatLng(1.334003,103.925236);
-                polylineOptions .add(polylinePoint1,polylinePoint2)
-                                .color(Color.RED)
-                                .width(1f);
-                mapboxMap.addPolyline(polylineOptions);
-                //endregion
-
-                //region mapboxMap event handlers
-                mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(@NonNull Marker marker) {
-                        Log.i("TEST", "On marker clicked");
-                        //NOTE: Will not be fired if marker info window is shown.
-                        return false;
-                    }
-                });
-                mapboxMap.setOnInfoWindowClickListener(new MapboxMap.OnInfoWindowClickListener() {
-                    @Override
-                    public boolean onInfoWindowClick(@NonNull Marker marker) {
-                        Log.i("TEST", "On marker info window clicked");
-                        return true; //Set to true to disable hiding of info window when clicked
-                    }
-                });
-                mapboxMap.setOnMapLongClickListener(new MapboxMap.OnMapLongClickListener() {
-                    @Override
-                    public void onMapLongClick(@NonNull LatLng point) {
-                        //Handles long click event on app
-                    }
-                });
                 //endregion
             }
         });
@@ -214,6 +159,16 @@ public class MainActivity extends FragmentActivity {
 
     private void startAddMarkerActivity() {
         Intent intent = new Intent(this, AddMarkerActivity.class);
+        startActivity(intent);
+    }
+
+    private void startAddPolylineActivity() {
+        Intent intent = new Intent(this, AddPolylineActivity.class);
+        startActivity(intent);
+    }
+
+    private void startAddMarkersWithCustomInfoWindowActivity() {
+        Intent intent = new Intent(this, AddMarkersWithCustomInfoWindowActivity.class);
         startActivity(intent);
     }
 }

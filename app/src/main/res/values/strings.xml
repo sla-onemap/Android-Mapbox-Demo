@@ -4,5 +4,6 @@
     <string-array name="left_drawer_items">
         <item>Add marker</item>
         <item>Draw polyline</item>
+        <item>Custom maker info window</item>
     </string-array>
 </resources>

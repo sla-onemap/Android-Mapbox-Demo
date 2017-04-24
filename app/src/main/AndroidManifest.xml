@@ -22,9 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddMarkerActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+        <activity
+            android:name=".AddMarkerActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddPolylineActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddMarkersWithCustomInfoWindowActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
