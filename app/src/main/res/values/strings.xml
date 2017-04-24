@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MapboxDemo</string>
+    <string name="mapbox_access_code">pk.eyJ1Ijoiai1sb3JtZWUiLCJhIjoiY2lwZjdwMGd6MDAyY3RqbmM1djFudjBmNiJ9.9GJCq8DfZW7SGgWKNH3q8g</string>
 </resources>

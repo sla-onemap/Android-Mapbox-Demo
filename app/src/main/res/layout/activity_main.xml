@@ -17,8 +17,7 @@
         <com.mapbox.mapboxsdk.maps.MapView
             android:id="@+id/mapview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            mapbox:access_token="pk.eyJ1Ijoiai1sb3JtZWUiLCJhIjoiY2lwZjdwMGd6MDAyY3RqbmM1djFudjBmNiJ9.9GJCq8DfZW7SGgWKNH3q8g"/>
+            android:layout_height="match_parent" />
     </FrameLayout>
 
 </RelativeLayout>

@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
@@ -35,17 +36,22 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Must be before all mapbox operations
+        Mapbox.getInstance(MainActivity.this, getResources().getString(R.string.mapbox_access_code));
+
         setContentView(R.layout.activity_main);
 
         mapView = (MapView) findViewById(R.id.mapview);
-        mapView.onCreate(savedInstanceState); //VERY IMPORTANT LINE OR ELSE APP WILL CRASH
+        mapView.onCreate(savedInstanceState); //This is essential for mapbox to work
+
         mapView.setStyleUrl(vibrant_city); //SET CUSTOM BASE MAP URL
+
 
         //Callback when map finish loading and is ready to be used
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(final MapboxMap mapboxMap) {
-
 
                 //region CUSTOM MARKER INFO WINDOW
                 //Comment out to use back default marker info window
@@ -117,8 +123,53 @@ public class MainActivity extends FragmentActivity {
                     }
                 });
                 //endregion
-
             }
         });
     }
+
+    //........................................
+    //Do not remove, essential to use Mapbox
+    //........................................
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+    //........................................
 }

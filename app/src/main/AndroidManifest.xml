@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service android:name="com.mapbox.mapboxsdk.telemetry.TelemetryService"/>
+        <service android:name="com.mapbox.services.android.telemetry.service.TelemetryService"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>
