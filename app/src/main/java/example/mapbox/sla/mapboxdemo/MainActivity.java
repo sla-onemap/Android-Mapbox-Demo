@@ -8,11 +8,21 @@
 
 package example.mapbox.sla.mapboxdemo;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Switch;
 
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -30,8 +40,24 @@ public class MainActivity extends FragmentActivity {
     // MapBox
     private MapView mapView;
 
-    private String vibrant_city = "https://maps-json.onemap.sg/Default.json";
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ImageView iv_openleftmenu;
+
+    private String[] mLeftDrawerItemTitles;
+
     // SLA Basemap url, for more information go to https://docs.onemap.sg/#basemap
+
+    public class DrawerItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            switch (position) {
+                case 0:
+                    startAddMarkerActivity();
+                    break;
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +70,7 @@ public class MainActivity extends FragmentActivity {
 
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState); //This is essential for mapbox to work
-
-        mapView.setStyleUrl(vibrant_city); //SET CUSTOM BASE MAP URL
+        mapView.setStyleUrl(Constants.DEFAULT_BASEMAP_URL); //SET CUSTOM BASE MAP URL
 
 
         //Callback when map finish loading and is ready to be used
@@ -125,6 +150,20 @@ public class MainActivity extends FragmentActivity {
                 //endregion
             }
         });
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mLeftDrawerItemTitles = getResources().getStringArray(R.array.left_drawer_items);
+        mDrawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, mLeftDrawerItemTitles));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        iv_openleftmenu = (ImageView) findViewById(R.id.iv_openleftmenu);
+        iv_openleftmenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
     }
 
     //........................................
@@ -172,4 +211,9 @@ public class MainActivity extends FragmentActivity {
         mapView.onSaveInstanceState(outState);
     }
     //........................................
+
+    private void startAddMarkerActivity() {
+        Intent intent = new Intent(this, AddMarkerActivity.class);
+        startActivity(intent);
+    }
 }

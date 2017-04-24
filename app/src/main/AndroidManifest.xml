@@ -13,8 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <service android:name="com.mapbox.services.android.telemetry.service.TelemetryService"/>
+        <service android:name="com.mapbox.services.android.telemetry.service.TelemetryService" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -22,6 +21,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".AddMarkerActivity"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
