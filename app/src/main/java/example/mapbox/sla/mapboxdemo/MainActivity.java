@@ -9,31 +9,26 @@
 package example.mapbox.sla.mapboxdemo;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Switch;
 
+import com.android.volley.RequestQueue;
 import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.annotations.Marker;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
-import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+
+import example.mapbox.sla.mapboxdemo.Helpers.MySingleton;
 
 public class MainActivity extends FragmentActivity {
 
@@ -45,6 +40,8 @@ public class MainActivity extends FragmentActivity {
     private ImageView iv_openleftmenu;
 
     private String[] mLeftDrawerItemTitles;
+
+    private RequestQueue requestQueue;
 
     // SLA Basemap url, for more information go to https://docs.onemap.sg/#basemap
 
@@ -60,6 +57,9 @@ public class MainActivity extends FragmentActivity {
                     break;
                 case 2:
                     startAddMarkersWithCustomInfoWindowActivity();
+                    break;
+                case 3:
+                    startLineLayerActivity();
                     break;
             }
         }
@@ -114,6 +114,8 @@ public class MainActivity extends FragmentActivity {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             }
         });
+
+        this.requestQueue = MySingleton.getInstance(MainActivity.this).getRequestQueue();
     }
 
     //........................................
@@ -162,6 +164,7 @@ public class MainActivity extends FragmentActivity {
     }
     //........................................
 
+    //region Helpers
     private void startAddMarkerActivity() {
         Intent intent = new Intent(this, AddMarkerActivity.class);
         startActivity(intent);
@@ -176,4 +179,10 @@ public class MainActivity extends FragmentActivity {
         Intent intent = new Intent(this, AddMarkersWithCustomInfoWindowActivity.class);
         startActivity(intent);
     }
+
+    private void startLineLayerActivity() {
+        Intent intent = new Intent(this, AddLineLayerActivity.class);
+        startActivity(intent);
+    }
+    //endregion
 }

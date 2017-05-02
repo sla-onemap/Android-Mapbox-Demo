@@ -5,5 +5,7 @@
         <item>Add marker</item>
         <item>Draw polyline</item>
         <item>Custom maker info window</item>
+        <item>Add Traffic Line Layer</item>
     </string-array>
+    <string name="general_loading_msg">Loading</string>
 </resources>

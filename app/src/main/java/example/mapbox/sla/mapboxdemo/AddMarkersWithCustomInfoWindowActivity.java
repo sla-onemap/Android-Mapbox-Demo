@@ -1,8 +1,8 @@
 package example.mapbox.sla.mapboxdemo;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.mapbox.mapboxsdk.annotations.Marker;
