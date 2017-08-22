@@ -31,7 +31,10 @@
         <activity
             android:name=".AddMarkersWithCustomInfoWindowActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".AddLineLayerActivity"
+        <activity
+            android:name=".AddLineLayerActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".AddPolygonLayerActivity"
             android:parentActivityName=".MainActivity"></activity>
     </application>
 

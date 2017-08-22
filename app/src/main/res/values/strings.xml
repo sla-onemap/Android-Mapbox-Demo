@@ -6,6 +6,7 @@
         <item>Draw polyline</item>
         <item>Custom maker info window</item>
         <item>Add Traffic Line Layer</item>
+        <item>Add Polygon Layer</item>
     </string-array>
     <string name="general_loading_msg">Loading</string>
 </resources>

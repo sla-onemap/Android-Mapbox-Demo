@@ -61,6 +61,9 @@ public class MainActivity extends FragmentActivity {
                 case 3:
                     startLineLayerActivity();
                     break;
+                case 4:
+                    startPolygonLayerActivity();
+                    break;
             }
         }
     }
@@ -78,6 +81,12 @@ public class MainActivity extends FragmentActivity {
         mapView.onCreate(savedInstanceState); //This is essential for mapbox to work
         mapView.setStyleUrl(Constants.DEFAULT_BASEMAP_URL); //SET CUSTOM BASE MAP URL
 
+        mapView.addOnMapChangedListener(new MapView.OnMapChangedListener() {
+            @Override
+            public void onMapChanged(int change) {
+
+            }
+        });
 
         //Callback when map finish loading and is ready to be used
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -182,6 +191,11 @@ public class MainActivity extends FragmentActivity {
 
     private void startLineLayerActivity() {
         Intent intent = new Intent(this, AddLineLayerActivity.class);
+        startActivity(intent);
+    }
+
+    private void startPolygonLayerActivity() {
+        Intent intent = new Intent(this, AddPolygonLayerActivity.class);
         startActivity(intent);
     }
     //endregion
