@@ -1,10 +1,13 @@
 package example.mapbox.sla.mapboxdemo;
 
 import android.graphics.Color;
+import android.graphics.PointF;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -73,17 +76,24 @@ public class AddPolygonLayerActivity extends AppCompatActivity {
                             polygons.add(latLngs);
                         }
                     }
+
+                    mapboxMap.setOnMapClickListener(new MapboxMap.OnMapClickListener() {
+                        @Override
+                        public void onMapClick(@NonNull LatLng point) {
+                            handlePolygonLayerClick(point);
+                        }
+                    });
                 }
                 catch (JSONException e) {
                     Log.e("TEST", "", e);
                 }
 
-                drawLandQueryPolygonLayer(polygons, "", "#A52A2A");
+                drawLandQueryPolygonLayer(polygons, "#A52A2A");
             }
         });
     }
 
-    private void drawLandQueryPolygonLayer(List<LatLng[]> polygons, String strokeColorCode, String fillColorCode) {
+    private void drawLandQueryPolygonLayer(List<LatLng[]> polygons, String fillColorCode) {
 
 
         // Create a list to store our line coordinates.
@@ -111,6 +121,18 @@ public class AddPolygonLayerActivity extends AppCompatActivity {
                 PropertyFactory.fillOpacity(0.7f));
 
         mapboxMap.addLayer(fillLayer);
+    }
+
+    public void handlePolygonLayerClick(LatLng point) {
+
+        if(mapboxMap == null) return;
+
+        final PointF pixel = mapboxMap.getProjection().toScreenLocation(point);
+        List<Feature> features = mapboxMap.queryRenderedFeatures(pixel, "POLYGON_LAYER_ID");
+
+
+        ArrayList<LatLng> polygonCoords = (ArrayList<LatLng>) features.get(0).getGeometry().getCoordinates();
+        Log.i("TEST", "Selected polygon " + polygonCoords.toString());
     }
 
     //........................................
