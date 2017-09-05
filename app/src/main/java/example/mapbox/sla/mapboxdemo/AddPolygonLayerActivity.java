@@ -203,10 +203,11 @@ public class AddPolygonLayerActivity extends AppCompatActivity {
         final PointF pixel = mapboxMap.getProjection().toScreenLocation(point);
         List<Feature> features = mapboxMap.queryRenderedFeatures(pixel);
 
-
-        ArrayList<LatLng> polygonCoords = (ArrayList<LatLng>) features.get(0).getGeometry().getCoordinates();
-        Log.i("TEST", "Selected polygon " + polygonCoords.toString());
-        Toast.makeText(AddPolygonLayerActivity.this,  "Selected polygon " + polygonCoords.toString(), Toast.LENGTH_SHORT).show();
+        if(features != null && features.size()>0) {
+            ArrayList<LatLng> polygonCoords = (ArrayList<LatLng>) features.get(0).getGeometry().getCoordinates();
+            Log.i("TEST", "Selected polygon " + polygonCoords.toString());
+            Toast.makeText(AddPolygonLayerActivity.this, "Selected polygon " + polygonCoords.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     //........................................
