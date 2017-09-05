@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -62,7 +63,7 @@ public class AddPolygonLayerActivity extends AppCompatActivity {
             final JSONObject des = TextResUtils.readJSONFromRes(AddPolygonLayerActivity.this, R.raw.des);
             JSONArray features = des.getJSONArray("features");
             for(int i=0; i<features.length(); i++) {
-                Log.i("TEST", String.valueOf(i));
+//                Log.i("TEST", String.valueOf(i));
                 JSONObject featureObj = features.getJSONObject(i);
                 JSONObject geometry = featureObj.getJSONObject("geometry");
                 JSONArray rings = geometry.getJSONArray("rings");
@@ -184,6 +185,14 @@ public class AddPolygonLayerActivity extends AppCompatActivity {
                 PropertyFactory.fillOpacity(0.7f));
 
         mapboxMap.addLayer(fillLayer);
+
+        //Handle click
+        mapboxMap.setOnMapClickListener(new MapboxMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(@NonNull LatLng point) {
+                handlePolygonLayerClick(point);
+            }
+        });
     }
 
 
@@ -192,11 +201,12 @@ public class AddPolygonLayerActivity extends AppCompatActivity {
         if(mapboxMap == null) return;
 
         final PointF pixel = mapboxMap.getProjection().toScreenLocation(point);
-        List<Feature> features = mapboxMap.queryRenderedFeatures(pixel, "POLYGON_LAYER_ID");
+        List<Feature> features = mapboxMap.queryRenderedFeatures(pixel);
 
 
         ArrayList<LatLng> polygonCoords = (ArrayList<LatLng>) features.get(0).getGeometry().getCoordinates();
         Log.i("TEST", "Selected polygon " + polygonCoords.toString());
+        Toast.makeText(AddPolygonLayerActivity.this,  "Selected polygon " + polygonCoords.toString(), Toast.LENGTH_SHORT).show();
     }
 
     //........................................
