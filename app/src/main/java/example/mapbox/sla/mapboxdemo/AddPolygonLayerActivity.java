@@ -204,6 +204,7 @@ public class AddPolygonLayerActivity extends AppCompatActivity {
         List<Feature> features = mapboxMap.queryRenderedFeatures(pixel);
 
         if(features != null && features.size()>0) {
+            //Clicked on a layer!
             ArrayList<LatLng> polygonCoords = (ArrayList<LatLng>) features.get(0).getGeometry().getCoordinates();
             Log.i("TEST", "Selected polygon " + polygonCoords.toString());
             Toast.makeText(AddPolygonLayerActivity.this, "Selected polygon " + polygonCoords.toString(), Toast.LENGTH_SHORT).show();
