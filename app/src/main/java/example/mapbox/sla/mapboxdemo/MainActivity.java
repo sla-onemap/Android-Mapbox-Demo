@@ -10,6 +10,7 @@ package example.mapbox.sla.mapboxdemo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
@@ -27,11 +28,11 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.mapboxsdk.maps.Style;
 
 import example.mapbox.sla.mapboxdemo.Helpers.MySingleton;
 
 public class MainActivity extends FragmentActivity {
-
     // MapBox
     private MapView mapView;
 
@@ -59,9 +60,6 @@ public class MainActivity extends FragmentActivity {
                     startAddMarkersWithCustomInfoWindowActivity();
                     break;
                 case 3:
-                    startLineLayerActivity();
-                    break;
-                case 4:
                     startPolygonLayerActivity();
                     break;
             }
@@ -79,34 +77,28 @@ public class MainActivity extends FragmentActivity {
 
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState); //This is essential for mapbox to work
-        mapView.setStyleUrl(Constants.DEFAULT_BASEMAP_URL); //SET CUSTOM BASE MAP URL
-
-        mapView.addOnMapChangedListener(new MapView.OnMapChangedListener() {
-            @Override
-            public void onMapChanged(int change) {
-
-            }
-        });
-
-        //Callback when map finish loading and is ready to be used
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
-            public void onMapReady(final MapboxMap mapboxMap) {
+            public void onMapReady(@NonNull final MapboxMap mapboxMap) {
+                mapboxMap.setStyle(Constants.DEFAULT_BASEMAP_URL, new Style.OnStyleLoaded() { //SET CUSTOM BASE MAP URL
+                    @Override
+                    public void onStyleLoaded(@NonNull Style style) {
+                        //region ZOOM TO LOCATION
+                        LatLng zoomLocation = new LatLng(1.358479, 103.815201);
+                        CameraPosition position = new CameraPosition.Builder()
+                                .target(zoomLocation)
+                                .zoom(12) // Sets the zoom
+                                .build(); // Creates a CameraPosition from the builder
+                        mapboxMap.animateCamera(CameraUpdateFactory
+                                .newCameraPosition(position), 2000);
+                        //endregion
 
-                //region ZOOM TO LOCATION
-                LatLng zoomLocation = new LatLng(1.358479,103.815201);
-                CameraPosition position = new CameraPosition.Builder()
-                        .target(zoomLocation)
-                        .zoom(12) // Sets the zoom
-                        .build(); // Creates a CameraPosition from the builder
-                mapboxMap.animateCamera(CameraUpdateFactory
-                        .newCameraPosition(position), 2000);
-                //endregion
-
-                //region remove mapbox attrition and logo
-                mapboxMap.getUiSettings().setAttributionEnabled(false);
-                mapboxMap.getUiSettings().setLogoEnabled(false);
-                //endregion
+                        //region remove mapbox attrition and logo
+                        mapboxMap.getUiSettings().setAttributionEnabled(false);
+                        mapboxMap.getUiSettings().setLogoEnabled(false);
+                        //endregion
+                    }
+                });
             }
         });
 
@@ -186,11 +178,6 @@ public class MainActivity extends FragmentActivity {
 
     private void startAddMarkersWithCustomInfoWindowActivity() {
         Intent intent = new Intent(this, AddMarkersWithCustomInfoWindowActivity.class);
-        startActivity(intent);
-    }
-
-    private void startLineLayerActivity() {
-        Intent intent = new Intent(this, AddLineLayerActivity.class);
         startActivity(intent);
     }
 

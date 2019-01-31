@@ -13,7 +13,6 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
  */
 
 public class CustomMarkerInfoWindow implements MapboxMap.InfoWindowAdapter {
-
     private Activity activity;
 
     public CustomMarkerInfoWindow(Activity activity) {
@@ -22,11 +21,10 @@ public class CustomMarkerInfoWindow implements MapboxMap.InfoWindowAdapter {
 
     @Nullable
     @Override
-    public View getInfoWindow(final Marker marker)
-    {
+    public View getInfoWindow(final Marker marker) {
         final View v = View.inflate(activity, R.layout.custom_marker_info_window, null);
-        TextView tv_title =  (TextView) v.findViewById(R.id.tv_title);
-        TextView tv_snippet =  (TextView) v.findViewById(R.id.tv_snippet);
+        TextView tv_title = (TextView) v.findViewById(R.id.tv_title);
+        TextView tv_snippet = (TextView) v.findViewById(R.id.tv_snippet);
 
         //Setting values from marker
         tv_title.setText(marker.getTitle());
