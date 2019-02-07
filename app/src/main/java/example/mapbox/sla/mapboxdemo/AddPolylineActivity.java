@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddPolylineActivity extends AppCompatActivity {
+    MapView mapView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        MapView mapView;
 
         setContentView(R.layout.activity_add_polyline);
 
@@ -34,7 +34,7 @@ public class AddPolylineActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        mapView = (MapView) findViewById(R.id.mapview);
+        mapView = findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState); //This is essential for mapbox to work
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -42,7 +42,7 @@ public class AddPolylineActivity extends AppCompatActivity {
                 mapboxMap.setStyle(Constants.DEFAULT_BASEMAP_URL, new Style.OnStyleLoaded() { //SET CUSTOM BASE MAP URL
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
-                        List<Point> routeCoordinates = new ArrayList<Point>();
+                        List<Point> routeCoordinates = new ArrayList<>();
 
                         routeCoordinates.add(Point.fromLngLat(103.711346, 1.405050));
                         routeCoordinates.add(Point.fromLngLat(103.925236, 1.334003));
@@ -67,4 +67,50 @@ public class AddPolylineActivity extends AppCompatActivity {
             }
         });
     }
+
+    //........................................
+    //Do not remove, essential to use Mapbox
+    //........................................
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+    //........................................
 }

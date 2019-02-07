@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.android.volley.RequestQueue;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -30,19 +29,11 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 
-import example.mapbox.sla.mapboxdemo.Helpers.MySingleton;
-
 public class MainActivity extends FragmentActivity {
     // MapBox
     private MapView mapView;
 
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ImageView iv_openleftmenu;
-
-    private String[] mLeftDrawerItemTitles;
-
-    private RequestQueue requestQueue;
 
     // SLA Basemap url, for more information go to https://docs.onemap.sg/#basemap
 
@@ -70,12 +61,17 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ListView mDrawerList;
+        ImageView iv_openleftmenu;
+
+        String[] mLeftDrawerItemTitles;
+
         //Must be before all mapbox operations
         Mapbox.getInstance(MainActivity.this, getResources().getString(R.string.mapbox_access_code));
 
         setContentView(R.layout.activity_main);
 
-        mapView = (MapView) findViewById(R.id.mapview);
+        mapView = findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState); //This is essential for mapbox to work
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -102,21 +98,19 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerList = findViewById(R.id.left_drawer);
         mLeftDrawerItemTitles = getResources().getStringArray(R.array.left_drawer_items);
         mDrawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, mLeftDrawerItemTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        iv_openleftmenu = (ImageView) findViewById(R.id.iv_openleftmenu);
+        iv_openleftmenu = findViewById(R.id.iv_openleftmenu);
         iv_openleftmenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDrawerLayout.openDrawer(Gravity.LEFT);
+                mDrawerLayout.openDrawer(Gravity.START);
             }
         });
-
-        this.requestQueue = MySingleton.getInstance(MainActivity.this).getRequestQueue();
     }
 
     //........................................
