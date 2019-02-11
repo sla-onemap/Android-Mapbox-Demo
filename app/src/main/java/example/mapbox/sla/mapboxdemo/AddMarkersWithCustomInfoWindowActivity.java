@@ -410,6 +410,7 @@ public class AddMarkersWithCustomInfoWindowActivity extends AppCompatActivity im
         if (mapboxMap != null) {
             mapboxMap.removeOnMapClickListener(this);
         }
+        mapView.onDestroy();
     }
 
     @Override

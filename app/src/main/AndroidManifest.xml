@@ -33,5 +33,8 @@
         <activity
             android:name=".AddPolygonLayerActivity"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ShowNightBaseMapActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 </manifest>

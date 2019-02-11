@@ -53,6 +53,9 @@ public class MainActivity extends FragmentActivity {
                 case 3:
                     startPolygonLayerActivity();
                     break;
+                case 4:
+                    startShowNightBaseMapActivity();
+                    break;
             }
         }
     }
@@ -177,6 +180,11 @@ public class MainActivity extends FragmentActivity {
 
     private void startPolygonLayerActivity() {
         Intent intent = new Intent(this, AddPolygonLayerActivity.class);
+        startActivity(intent);
+    }
+
+    private void startShowNightBaseMapActivity() {
+        Intent intent = new Intent(this, ShowNightBaseMapActivity.class);
         startActivity(intent);
     }
     //endregion

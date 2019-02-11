@@ -6,4 +6,5 @@ package example.mapbox.sla.mapboxdemo;
 
 public class Constants {
     public static final String DEFAULT_BASEMAP_URL = "https://maps-json.onemap.sg/Default.json";
+    public static final String NIGHT_BASEMAP_URL = "https://maps-json.onemap.sg/Night.json";
 }
