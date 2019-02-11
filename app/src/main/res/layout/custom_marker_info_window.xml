@@ -1,49 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mapbox.mapboxsdk.annotations.BubbleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="6dp"
-    android:paddingEnd="8dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:paddingStart="8dp"
-    app:mapbox_bl_arrowDirection="bottom"
-    app:mapbox_bl_arrowHeight="8dp"
-    app:mapbox_bl_arrowPosition="16dp"
-    app:mapbox_bl_arrowWidth="8dp"
-    app:mapbox_bl_bubbleColor="@android:color/white"
-    app:mapbox_bl_cornersRadius="6dp"
-    app:mapbox_bl_strokeColor="@android:color/darker_gray"
-    app:mapbox_bl_strokeWidth="1dp">
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/rl_text_container"
+    <TextView
+        android:id="@+id/tv_marker_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:gravity="center">
+        android:background="@color/colorDialog"
+        android:padding="20dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Title" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="Title" />
-
-        <TextView
-            android:id="@+id/tv_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_title"
-            android:layout_marginTop="5dp"
-            android:text="subtitle"
-            android:textSize="12sp"
-            android:textStyle="italic" />
-    </RelativeLayout>
-</com.mapbox.mapboxsdk.annotations.BubbleLayout>
-
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_triangle" />
+</LinearLayout>
