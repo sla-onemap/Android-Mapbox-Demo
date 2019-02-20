@@ -21,7 +21,7 @@ public class ShowNightBaseMapActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_add_polyline);
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Change basemap");
+            getSupportActionBar().setTitle("Show night basemap");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 

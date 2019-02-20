@@ -7,19 +7,37 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_marker_title"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:background="@color/colorDialog"
-        android:padding="20dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text="Title" />
+        android:background="@drawable/shape_rectangle_rounded"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_marker_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/tv_marker_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            tools:text="Subtitle" />
+    </LinearLayout>
 
     <ImageView
         android:layout_width="30dp"
         android:layout_height="50dp"
         android:background="@drawable/shape_triangle" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="60dp"
+        android:background="@drawable/mapbox_marker_icon_default" />
 </LinearLayout>
